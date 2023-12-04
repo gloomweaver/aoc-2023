@@ -9,12 +9,8 @@ fn process(input: &str) -> i64 {
             let mut parts = line.split(":");
             let id = parts
                 .next()
-                .unwrap()
-                .trim()
-                .split(" ")
-                .nth(1)
-                .unwrap()
-                .parse::<i64>()
+                .and_then(|s| s.trim().split(" ").nth(1))
+                .and_then(|s| s.parse::<i64>().ok())
                 .unwrap();
             let cubes = parts.next().unwrap().trim();
             let valid = cubes.split(";").all(|cube| {
